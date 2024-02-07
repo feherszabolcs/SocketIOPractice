@@ -1,0 +1,25 @@
+<div id="messageBox">
+  @for (message of messages; track $index) {
+  <p>{{ message.content }}</p>
+  }
+</div>
+
+<form>
+  <input
+    type="text"
+    id="messageInput"
+    placeholder="message"
+    name="message"
+    [(ngModel)]="messageInput"
+  /><br />
+  <input
+    type="text"
+    id="roomInput"
+    placeholder="Room"
+    name="room"
+    [(ngModel)]="roomInput"
+  /><br />
+  <input type="submit" value="Send" (click)="sendMessage()" />
+</form>
+
+<router-outlet />
