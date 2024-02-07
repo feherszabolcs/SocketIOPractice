@@ -25,6 +25,13 @@ export class AppComponent implements OnInit {
     this.messageInput = '';
   }
 
+  joinRoom() {
+    if (!this.roomInput?.trim()) return;
+
+    this.socket.emit('join-room', this.roomInput);
+    this.messages.splice(1, this.messages.length);
+  }
+
   ngOnInit() {
     this.socket.on('connect', () => {
       this.messages.push({
@@ -36,12 +43,20 @@ export class AppComponent implements OnInit {
     this.socket.on('message', (data: Message) => {
       this.messages.push(data);
     });
+
+    this.socket.on('user-joined', (data) => {
+      this.messages.push({
+        id: '',
+        content: `${data.id} joined the room`,
+      });
+    });
   }
 
   private assembleMessageData(): Message {
     return {
       id: this.socket.id?.slice(0, 2)!,
       content: this.messageInput,
+      room: this.roomInput?.trim() || undefined,
     };
   }
 }

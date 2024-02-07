@@ -1,28 +1,34 @@
-<div id="messageBox">
-  @for (message of messages; track $index) {
-  <p [class]="message.id == socket.id ? 'me' : ''">
-    <span>{{ message.id }}</span
-    >: {{ message.content }}
-  </p>
-  }
+<div class="container">
+  <div class="flex-container">
+    <div id="messageBox">
+      @for (message of messages; track $index) {
+      <p [class]="message.id == socket.id?.slice(0, 2) ? 'me' : ''">
+        <span>{{ message.id }}</span
+        >: {{ message.content }}
+      </p>
+      }
+    </div>
+
+    <form id="messageForm">
+      <input
+        type="text"
+        id="messageInput"
+        placeholder="Message"
+        name="message"
+        [(ngModel)]="messageInput"
+      />
+      <input type="submit" value="Send" (click)="sendMessage()" />
+    </form>
+
+    <form id="roomForm">
+      <input
+        type="text"
+        id="roomInput"
+        placeholder="Room"
+        name="room"
+        [(ngModel)]="roomInput"
+      />
+      <input type="submit" value="Join" (click)="joinRoom()" />
+    </form>
+  </div>
 </div>
-
-<form>
-  <input
-    type="text"
-    id="messageInput"
-    placeholder="message"
-    name="message"
-    [(ngModel)]="messageInput"
-  /><br />
-  <input
-    type="text"
-    id="roomInput"
-    placeholder="Room"
-    name="room"
-    [(ngModel)]="roomInput"
-  /><br />
-  <input type="submit" value="Send" (click)="sendMessage()" />
-</form>
-
-<router-outlet />
