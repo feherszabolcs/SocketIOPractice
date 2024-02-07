@@ -3,6 +3,11 @@
   margin: 5px;
 }
 
+#messageBox p {
+  margin: 0;
+  padding: 5px;
+}
+
 #messageBox p:nth-child(even) {
   border-bottom: 1px solid #ccc;
   background-color: #ccc;
@@ -10,5 +15,13 @@
 
 #messageBox p:nth-child(odd) {
   border-bottom: 1px solid white;
-  background-color: #ccc;
+  background-color: white;
+}
+
+#messageBox p.me {
+  background-color: pink;
+}
+
+#messageBox p span {
+  color: red;
 }

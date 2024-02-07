@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   sendMessage() {
     if (!this.messageInput?.trim()) return;
 
-    this.messages.push({ content: this.messageInput });
+    this.messages.push(this.assembleMessageData());
     this.socket.emit('message', this.assembleMessageData());
     this.messageInput = '';
   }
@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.socket.on('connect', () => {
       this.messages.push({
+        id: '',
         content: `You connected with id: ${this.socket.id}`,
       });
     });
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit {
 
   private assembleMessageData(): Message {
     return {
+      id: this.socket.id?.slice(0, 2)!,
       content: this.messageInput,
     };
   }

@@ -1,6 +1,9 @@
 <div id="messageBox">
   @for (message of messages; track $index) {
-  <p>{{ message.content }}</p>
+  <p [class]="message.id == socket.id ? 'me' : ''">
+    <span>{{ message.id }}</span
+    >: {{ message.content }}
+  </p>
   }
 </div>
 
