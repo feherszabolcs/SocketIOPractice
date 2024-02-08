@@ -1,0 +1,37 @@
+<div class="container">
+  <form id="login-form" [formGroup]="loginForm">
+    <h2>Login</h2>
+    <input
+      type="text"
+      name="username"
+      placeholder="Username"
+      formControlName="username"
+      [class]="
+        errorCheck && loginForm.controls['username'].invalid
+          ? 'border-danger'
+          : ''
+      "
+    />
+    <input
+      type="password"
+      name="password"
+      placeholder="Password"
+      formControlName="password"
+      [class]="
+        errorCheck && loginForm.controls['password'].invalid
+          ? 'border-danger'
+          : ''
+      "
+    />
+    <input
+      [disabled]="errorCheck && loginForm.invalid ? 'disabled' : null"
+      type="submit"
+      (click)="login()"
+    />
+    @if (errorMessage) {
+    <div class="error-display">
+      <p>{{ errorMessage }}</p>
+    </div>
+    }
+  </form>
+</div>
