@@ -9,21 +9,21 @@ module.exports = function (httpServer) {
     },
   });
 
-  io.use((socket, next) => {
-    if (socket.handshake.auth.token) {
-      try {
-        const payload = jwt.verify(
-          socket.handshake.auth.token,
-          process.env.JWT_SECRET
-        );
-        socket.username = payload.username;
-        return next();
-      } catch (e) {
-        return next(new Error("Invalid token"));
-      }
-    }
-    next(new Error("Token is not provied"));
-  });
+  // io.use((socket, next) => {
+  //   if (socket.handshake.auth.token) {
+  //     try {
+  //       const payload = jwt.verify(
+  //         socket.handshake.auth.token,
+  //         process.env.JWT_SECRET
+  //       );
+  //       socket.username = payload.username;
+  //       return next();
+  //     } catch (e) {
+  //       return next(new Error("Invalid token"));
+  //     }
+  //   }
+  //   next(new Error("Token is not provied"));
+  // });
 
   io.on("connection", (socket) => {
     console.log("A user connected with id: " + socket.id);
